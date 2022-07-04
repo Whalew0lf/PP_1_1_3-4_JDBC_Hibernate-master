@@ -3,6 +3,7 @@ package jm.task.core.jdbc.model;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Objects;
 
 @Table
 public class User {
@@ -26,6 +27,24 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User other = (User) o;
+        return ((this.getAge() == other.getAge()) && (this.getName().equals(other.getName())) &&
+                (this.getName().equals(other.getName())));
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode() + 31 * lastName.hashCode() + 31 * age;
     }
 
     @Override

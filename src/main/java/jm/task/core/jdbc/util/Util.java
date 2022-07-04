@@ -11,11 +11,12 @@ public class Util {
     final static String LOGIN = "root";
     final static String PASS = "root";
     static Driver driver;
+    private static Connection connection;
 
     public static Connection getConnection() throws SQLException {
         driver = new com.mysql.cj.jdbc.Driver();
         DriverManager.registerDriver(driver);
-        Connection connection = DriverManager.getConnection(URL, LOGIN, PASS);
+        connection = DriverManager.getConnection(URL, LOGIN, PASS);
         connection.setAutoCommit(false);
         return connection;
     }

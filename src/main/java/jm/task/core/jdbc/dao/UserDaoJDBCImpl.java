@@ -50,6 +50,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setByte(3, age);
             statement.executeUpdate();
             connection.commit();
+            System.out.println("user saved");
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
@@ -73,6 +74,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 userList.add(new User(resultSet.getString(2),
                         resultSet.getString(3),resultSet.getByte(4)));
             }
+            connection.commit();
             return userList;
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
@@ -83,6 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.execute("TRUNCATE TABLE users");
+            connection.commit();
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
