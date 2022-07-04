@@ -11,6 +11,10 @@ public class Main {
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("Серж","Шмель",(byte) 25);
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
+        userService.createUsersTable();
+        userService.saveUser("Серж","Шмель",(byte) 25);
         userService.saveUser("Дэвид","Вонг",(byte) 41);
         userService.saveUser("Антон","Вагин",(byte) 34);
         userService.saveUser("Фин","Шепард",(byte) 44);
@@ -18,7 +22,9 @@ public class Main {
         for (User user : userList) {
             System.out.println(user);
         }
-        userService.cleanUsersTable();
-        userService.dropUsersTable();
+        userService.removeUserById(1L);
+        //userService.cleanUsersTable();
+        //userService.dropUsersTable();
+        System.out.println("test");
     }
 }

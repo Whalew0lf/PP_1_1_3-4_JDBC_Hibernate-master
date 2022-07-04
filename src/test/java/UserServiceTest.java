@@ -58,7 +58,9 @@ public class UserServiceTest {
     @Test
     public void removeUserById() {
         try {
+            System.out.println("123");
             userService.dropUsersTable();
+            System.out.println("123");
             userService.createUsersTable();
             userService.saveUser(testName, testLastName, testAge);
             userService.removeUserById(1L);

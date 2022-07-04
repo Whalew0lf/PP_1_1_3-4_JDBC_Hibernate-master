@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class UserDaoJDBCImpl implements UserDao {
-    Connection connection;
+    private Connection connection;
     final Logger LOGGER = Logger.getLogger(UserDaoJDBCImpl.class.getName());
     public UserDaoJDBCImpl() {
         try {
@@ -28,6 +28,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 `lastName` VARCHAR(45) NOT NULL,
                 `age` TINYINT NOT NULL,
                 PRIMARY KEY (`id`));""");
+            connection.commit();
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
@@ -36,6 +37,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DROP TABLE users");
+            connection.commit();
         } catch (SQLException ex) {
             LOGGER.severe(ex.getMessage());
         }
@@ -47,6 +49,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setString(2, lastName);
             statement.setByte(3, age);
             statement.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
@@ -55,7 +58,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public void removeUserById(long id) {
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?")) {
             statement.setLong(1, id);
-            ResultSet resultSet = statement.executeQuery();
+            statement.executeUpdate();
+            connection.commit();
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
