@@ -28,7 +28,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 `lastName` VARCHAR(45) NOT NULL,
                 `age` TINYINT NOT NULL,
                 PRIMARY KEY (`id`));""");
-            connection.rollback();
         } catch (SQLException ex) {
             LOGGER.info(ex.getMessage());
         }
