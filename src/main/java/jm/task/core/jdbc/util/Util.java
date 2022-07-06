@@ -38,6 +38,7 @@ public class Util {
         properties.setProperty("hibernate.connection.username", LOGIN);
         properties.setProperty("hibernate.connection.password", PASS);
         properties.setProperty("hibernate.connection.driver_class", DRIVERNAME);
+        properties.setProperty("hibernate.show_sql","true");
         sessionFactory = new Configuration().addProperties(properties).addAnnotatedClass(User.class).buildSessionFactory();
         hibernateSession = sessionFactory.openSession();
         return hibernateSession;

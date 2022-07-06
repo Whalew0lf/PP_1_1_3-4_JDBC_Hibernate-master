@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class UserDaoJDBCImpl implements UserDao {
     private Connection connection;
-    final Logger LOGGER = Logger.getLogger(UserDaoJDBCImpl.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(UserDaoJDBCImpl.class.getName());
     public UserDaoJDBCImpl() {
         try {
             connection = Util.getConnection();
