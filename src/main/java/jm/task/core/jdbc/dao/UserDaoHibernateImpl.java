@@ -4,6 +4,8 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -73,9 +75,9 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            User user = new User();
-            user.setId(id);
-            session.delete(user);
+            Query query = session.createQuery("DELETE User WHERE id = :id");
+            query.setParameter("id", id);
+            query.executeUpdate();
             transaction.commit();
         } catch (Exception ex) {
             if (transaction != null) {
@@ -91,13 +93,10 @@ public class UserDaoHibernateImpl implements UserDao {
         Transaction transaction = null;
         try {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<User> builderQuery = criteriaBuilder.createQuery(User.class);
-            Root<User> rootEntry = builderQuery.from(User.class);
-            CriteriaQuery<User> all = builderQuery.select(rootEntry);
             transaction = session.beginTransaction();
-            TypedQuery<User> allQuery = session.createQuery(all);
+            Query query = session.createQuery("from User");
             transaction.commit();
-            return allQuery.getResultList();
+            return query.getResultList();
         } catch (Exception ex) {
             if (transaction != null) {
                 transaction.rollback();
